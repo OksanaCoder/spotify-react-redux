@@ -8,7 +8,7 @@ const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
  
-    setAlbums: () => dispatch(fetchAlbums()),
+    setAlbums: (id) => dispatch(fetchAlbums(id)),
     toggleLoading: () => dispatch({
         type: 'TOGGLE_LOADING'
     }),
@@ -22,9 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
     })
 });
 
-const fetchAlbums = () => {
+
+const fetchAlbums = (id) => {
     return (dispatch, getState) => {
-    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/', {
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/' + id, {
         "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
@@ -34,14 +35,15 @@ const fetchAlbums = () => {
     .then(result => result.json())
     
     .then(data => {
-        console.log(data)
-        return dispatch({type: "SET_ALBUMS", payload: data.users })
+        console.log('look here', data)
+        return dispatch({type: "SET_ALBUMS", payload: data })
     })
  }
 }
-const fetchTracks = () => {
+
+const fetchTracks = (id) => {
     return (dispatch, getState) => {
-    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/', {
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/' + id, {
         "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
@@ -52,23 +54,24 @@ const fetchTracks = () => {
     
     .then(data => {
         console.log(data)
-        return dispatch({type: "SET_TRACKS", payload: data.users })
+        return dispatch({type: "SET_TRACKS", payload: data })
     })
  }
 }
 const fetchArtistNames = () => {
     return (dispatch, getState) => {
-    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/')
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/' + this.props.match.params.id)
     .then(result => result.json())
     
     .then(data => {
         console.log(data)
-        return dispatch({type: "SET_ARTIST_NAME", payload: data.users })
+        return dispatch({type: "SET_ARTIST_NAME", payload: data })
     })
  }
 }
 
 class AlbumPage extends Component{
+
     // state = {
     //     albums: [],
     //     tracks: [],
@@ -80,6 +83,13 @@ class AlbumPage extends Component{
     //     this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
     //     )
    
+    componentDidMount =  async () => {
+         await this.props.setAlbums(this.props.match.params.id)
+        console.log( 'component',  this.props.albums.data)
+    }
+
+    
+
     // componentDidMount = () => {
     //     const albumId = this.props.match.params.id;
     //     let headers = new Headers({
@@ -136,17 +146,17 @@ class AlbumPage extends Component{
           </div>
           <div className="row">
             <div className="col-md-3 pt-5 text-center" id="img-container">
-            <Image
-                src={this.state.albums.cover_medium}
+            {/* <Image
+                src={this.props.albums.cover_medium}
                 className="card-img img-fluid"
                 alt={this.state.albums.title}
                 
-                />
+                /> */}
                 <div className="mt-4 text-center">
-                <p className="album-title">{this.state.albums.title}</p>
+                <p className="album-title">{this.props.albums.data.title}</p>
                 </div>
                 <div className="text-center">
-                <Link to={"/artistPage/"+ this.state.artistName.id} className="nav-link">Album: {this.state.artistName.name}
+                <Link to={"/artistPage/"+ this.props.artistName.data.id} className="nav-link">Album: {this.props.artistName.data.name}
                 
                 </Link>
                
@@ -156,11 +166,11 @@ class AlbumPage extends Component{
                     Play
                 </button>
                 </div>
-            </div>
+            </div> 
             <div className="col-md-8 p-5">
               <div className="row">
                 <div className="col-md-10 mb-5" id="trackList">
-                {this.state.tracks.map((tracklist)=>{
+                {this.props.tracks.data.map((tracklist)=>{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
                 
