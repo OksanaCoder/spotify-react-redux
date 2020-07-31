@@ -83,8 +83,8 @@ class AlbumPage extends Component{
     //     this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
     //     )
    
-    componentDidMount =  async () => {
-         await this.props.setAlbums(this.props.match.params.id)
+    componentDidMount =   () => {
+          this.props.setAlbums(this.props.match.params.id)
         console.log( 'component',  this.props.albums.data)
     }
 
@@ -170,7 +170,7 @@ class AlbumPage extends Component{
             <div className="col-md-8 p-5">
               <div className="row">
                 <div className="col-md-10 mb-5" id="trackList">
-                {this.props.tracks.data.map((tracklist)=>{
+                {this.props.albums.data.tracks.data.map((tracklist)=>{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
                 

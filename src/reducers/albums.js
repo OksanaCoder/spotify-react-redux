@@ -1,6 +1,6 @@
 export default function (state = {}, action) {
     switch (action.type) {
-        case "SET_ARTIST_NAME":
+        case "SET_ALBUMS":
             return {
                 ...state,
                 data: action.payload
