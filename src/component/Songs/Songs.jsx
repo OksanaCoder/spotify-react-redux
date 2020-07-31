@@ -25,7 +25,7 @@ class Songs extends Component {
       
        
         <div className="col space-left2 text-center">
-            <a href="/album">
+            <a href={"/album/"  + this.props.song.album.id}>
               <Image className="img-fluid" src={this.props.song.album.cover_medium} alt={this.props.song.artist.name} />
             </a>
             <p> 

@@ -150,12 +150,14 @@ class AlbumPage extends Component{
           </div>
           <div className="row">
             <div className="col-md-3 pt-5 text-center" id="img-container">
-            <Image
+          
+            <img
                 src={this.props.albums.data.cover_medium}
                 className="card-img img-fluid"
                 alt={this.props.albums.data.title}
                 
                 />
+       
                 <div className="mt-4 text-center">
                 <p className="album-title">{this.props.albums.data.title}</p>
                 </div>
