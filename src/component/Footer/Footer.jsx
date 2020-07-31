@@ -3,9 +3,11 @@ import { withRouter} from 'react-router-dom';
 import Album from '../AlbumPage/AlbumPage'
 
 const footerPage = (props) =>{
-  console.log("props footer",props)
+
+
+  console.log("props footer", props.data)
+
  
-  console.log('footer album Id from js', props.footerId)
     return(
         <>
         <div className="container-fluid fixed-bottom bg-container pt-1">

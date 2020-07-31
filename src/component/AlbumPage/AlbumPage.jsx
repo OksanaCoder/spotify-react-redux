@@ -3,6 +3,10 @@ import { Col, Image, Modal, Button, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, withRouter, Link} from "react-router-dom";
 import { connect } from "react-redux";
 // import Spiner from './Spiner'
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+
 
 const mapStateToProps = (state) => state;
 
@@ -173,7 +177,7 @@ class AlbumPage extends Component{
                 {this.props.albums.data && this.props.albums.data.tracks && this.props.albums.data.tracks.data.map((tracklist)=>{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
-                
+                        <FontAwesomeIcon style={{color: '#fff'}} icon={faPlayCircle} />
                         <a
                             href="#"
                             className="card-title trackHover px-3"
