@@ -83,9 +83,9 @@ class AlbumPage extends Component{
     //     this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
     //     )
    
-    componentDidMount =   () => {
-          this.props.setAlbums(this.props.match.params.id)
-        console.log( 'component',  this.props.albums.data)
+    componentDidMount = async () => {
+          await this.props.setAlbums(this.props.match.params.id)
+        console.log( 'component',  this.props)
     }
 
     
@@ -131,7 +131,7 @@ class AlbumPage extends Component{
     // }
     
     render(){
-        console.log('props from app.js', this.props)
+        console.log('props from app.js', this.props.albums)
         return (
             <>
             <div className="col-12 col-md-9 offset-md-3 mainPage">
@@ -146,12 +146,12 @@ class AlbumPage extends Component{
           </div>
           <div className="row">
             <div className="col-md-3 pt-5 text-center" id="img-container">
-            {/* <Image
-                src={this.props.albums.cover_medium}
+            <Image
+                src={this.props.albums.data.cover_medium}
                 className="card-img img-fluid"
-                alt={this.state.albums.title}
+                alt={this.props.albums.data.title}
                 
-                /> */}
+                />
                 <div className="mt-4 text-center">
                 <p className="album-title">{this.props.albums.data.title}</p>
                 </div>
@@ -170,7 +170,7 @@ class AlbumPage extends Component{
             <div className="col-md-8 p-5">
               <div className="row">
                 <div className="col-md-10 mb-5" id="trackList">
-                {this.props.albums.data.tracks.data.map((tracklist)=>{
+                {this.props.albums.data && this.props.albums.data.tracks && this.props.albums.data.tracks.data.map((tracklist)=>{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
                 
