@@ -1,26 +1,59 @@
-import React from 'react';
-import { withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
 import Album from '../AlbumPage/AlbumPage'
+import { BrowserRouter as Router, withRouter, Link} from "react-router-dom";
+import { connect } from "react-redux";
 
-const footerPage = (props) =>{
 
-
-  console.log("props footer", props.data)
-
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
  
+  setAlbums: (id) => dispatch(fetchAlbums(id)),
+  toggleLoading: () => dispatch({
+      type: 'TOGGLE_LOADING'
+  })
+});
+
+const fetchAlbums = (id) => {
+  return (dispatch, getState) => {
+  fetch('https://deezerdevs-deezer.p.rapidapi.com/album/' + id, {
+      "method": "GET",
+              "headers": {
+                  "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                  "x-rapidapi-key": "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579"
+              }
+  })
+  .then(result => result.json())
+  
+  .then(data => {
+      console.log('look here', data)
+      return dispatch({type: "SET_ALBUMS", payload: data })
+  })
+}
+}
+
+
+class footerPage extends Component {
+
+  componentDidMount = async () => {
+    await this.props.setAlbums(this.props.match.params.id)
+  console.log( 'component',  this.props)
+}
+ render() {
+
+console.log("props footer", this.props.data)
     return(
         <>
         <div className="container-fluid fixed-bottom bg-container pt-1">
       <div className="row d-flex">
         <div className="col-lg-2">
-          {props.location.pathname === '/album/'+ props.footerId
+          {this.props.location.pathname === '/album/'+ this.props.footerId
             ? (<div className="row d-flex">
             <div className="col-4">
-              <img src={props.footerCover} alt="" width="50px"/> 
+              <img src={this.props.footerCover} alt="" width="50px"/> 
             </div>
             <div className="col d-flex flex-column" id="songInfo">
-              <small id="songName">{props.footerLable}</small>
-              <small id="singer ">{props.footerTitle}</small>
+              <small id="songName">{this.props.footerLable}</small>
+              <small id="singer ">{this.props.footerTitle}</small>
             </div>
           </div> ): null
            
@@ -73,7 +106,12 @@ const footerPage = (props) =>{
         
         
     )
+
+  }
     
 }
 
-export default withRouter(footerPage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(footerPage)
+);
+
