@@ -9,7 +9,12 @@ export default function (state = {}, action) {
             return{
                 ...state,
                 loading: !state.loading
-            }
+            };
+        case "CHOOSE_SONG":
+                return{
+                    ...state,
+                    selectedSong: action.payload
+         };
         default:
             return state;
     }

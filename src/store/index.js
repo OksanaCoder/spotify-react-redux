@@ -10,7 +10,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialState = {
     albums: {
         data: [],
-        loading: true
+        loading: true,
+        selectedSong: ""
     },
     tracks : {
         data: [],

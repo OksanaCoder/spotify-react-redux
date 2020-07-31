@@ -37,10 +37,7 @@ class App extends Component {
       <Route path="/" exact component={HomePage} />
       <Route path="/artistPage/:id" exact component={Artistpage} />
       <Route path="/album/:id" exact render={(props)=><AlbumPage {...props} sendAlbum={this.albumToFooter} />} />
-      <FooterPage footerId= {this.state.albumId}
-      footerCover= {this.state.albumCover}
-      footerLable= {this.state.albumLabel}
-      footerTitle= {this.state.albumTitle}
+      <FooterPage 
       />
       </Router>
     

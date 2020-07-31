@@ -4,33 +4,34 @@ import { BrowserRouter as Router, withRouter, Link} from "react-router-dom";
 import { connect } from "react-redux";
 
 
-
-const footerPage = (props) => {
+const mapStateToProps = (state) => state;
+function footerPage (props) {
 
 //   componentDidMount = async () => {
 //     await this.props.setAlbums(this.props.match.params.id)
 //   console.log( 'component',  this.props)
 // }
-
+// console.log('props from app.js', this.props)
     return(
 
         <>
         <div className="container-fluid fixed-bottom bg-container pt-1">
       <div className="row d-flex">
         <div className="col-lg-2">
-          {props.location.pathname === '/album/'+ props.footerId
-            ? (<div className="row d-flex">
+          {/* {props.location.pathname === '/album/'+ props.footerId
+            ? ( */}
+            
+            <div className="row d-flex">
             <div className="col-4">
-              <img src={props.footerCover} alt="" width="50px"/> 
+            {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Shure_mikrofon_55S.jpg/220px-Shure_mikrofon_55S.jpgs' /> */}
             </div>
-            <div className="col d-flex flex-column" id="songInfo">
-              <small id="songName">{props.footerLable}</small>
-              <small id="singer ">{props.footerTitle}</small>
-            </div>
-          </div> ): null
+           
+          </div> 
+          
+          {/* ): null
            
            }
-           
+            */}
            
          
         </div>
@@ -58,6 +59,7 @@ const footerPage = (props) => {
               </div>
             </div>
           </div>
+          
           <div className="row justify-content-center playBar py-3">
             <div className="col-8 col-md-6">
               <div className="progress">
@@ -68,7 +70,12 @@ const footerPage = (props) => {
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
+                
               </div>
+              <div className="col d-flex flex-column" id="songInfo">
+              <small style={{marginLeft: '210px', paddingTop: '10px'}} id="songName">{props.albums.selectedSong}</small>
+              {/* <small id="singer ">{props.footerTitle}</small> */}
+            </div>
             </div>
           </div>
         </div>
@@ -83,6 +90,8 @@ const footerPage = (props) => {
     
 }
 
-export default withRouter(footerPage)
 
 
+export default withRouter(
+  connect(mapStateToProps)(footerPage)
+);

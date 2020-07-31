@@ -16,6 +16,10 @@ const mapDispatchToProps = (dispatch) => ({
     toggleLoading: () => dispatch({
         type: 'TOGGLE_LOADING'
     }),
+    playSong: (track) => dispatch({
+        type: 'CHOOSE_SONG',
+        payload: track
+    }),
     setTracks: () => dispatch(fetchTracks()),
     toggleLoading: () => dispatch({
         type: 'TOGGLE_LOADING'
@@ -150,12 +154,14 @@ class AlbumPage extends Component{
           </div>
           <div className="row">
             <div className="col-md-3 pt-5 text-center" id="img-container">
-            <Image
+          
+            <img
                 src={this.props.albums.data.cover_medium}
                 className="card-img img-fluid"
                 alt={this.props.albums.data.title}
                 
                 />
+       
                 <div className="mt-4 text-center">
                 <p className="album-title">{this.props.albums.data.title}</p>
                 </div>
@@ -178,7 +184,7 @@ class AlbumPage extends Component{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
                         <FontAwesomeIcon style={{color: '#fff'}} icon={faPlayCircle} />
-                        <a
+                        <a onClick={()=>this.props.playSong(tracklist.title)}
                             href="#"
                             className="card-title trackHover px-3"
                             style={{color: "white"}}
