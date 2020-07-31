@@ -6,6 +6,7 @@ import FooterPage  from './component/Footer/Footer';
 import AlbumPage from './component/AlbumPage/AlbumPage';
 import Artistpage from './component/ArtistPage/ArtistPage';
 import './App.css';
+import { connect } from "react-redux";
 
 const albumArr=[];
 class App extends Component {
