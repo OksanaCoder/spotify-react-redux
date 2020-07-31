@@ -3,8 +3,17 @@ import Album from '../AlbumPage/AlbumPage'
 import { BrowserRouter as Router, withRouter, Link} from "react-router-dom";
 import { connect } from "react-redux";
 
+const footBar = { 
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignContent: 'center'
+}
+const coverFooter = {
+  width: '50px'
 
+}
 const mapStateToProps = (state) => state;
+
 function footerPage (props) {
 
 //   componentDidMount = async () => {
@@ -17,13 +26,17 @@ function footerPage (props) {
         <>
         <div className="container-fluid fixed-bottom bg-container pt-1">
       <div className="row d-flex">
-        <div className="col-lg-2">
+        <div className="col-lg-4">
           {/* {props.location.pathname === '/album/'+ props.footerId
             ? ( */}
             
-            <div className="row d-flex">
-            <div className="col-4">
+            <div className="row d-flex justify-center" >
+            <div className="col-12" style={{display: 'flex', justifyContent:'flex-start', paddingTop: '15px', alignItems:' center'}}>
             {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Shure_mikrofon_55S.jpg/220px-Shure_mikrofon_55S.jpgs' /> */}
+             
+            <img style={coverFooter} src={props.albums.data.cover_medium} className='mr-3'/>
+            <small style={{color: '#fff'}}>{props.albums.selectedSong}</small>
+      
             </div>
            
           </div> 
@@ -35,11 +48,13 @@ function footerPage (props) {
            
          
         </div>
-        <div className="col-lg-10 ">
+
+        <div className="col-lg-8" style={footBar}>
           <div className="row">
             <div
-              className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1"
+              className="col-sm-12 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1"
             >
+              
               <div className="row">
                 <a href="#">
                   <img src="/playerbuttons/Shuffle.png" alt="shuffle" />
@@ -58,11 +73,11 @@ function footerPage (props) {
                 </a>
               </div>
             </div>
-          </div>
+     
           
-          <div className="row justify-content-center playBar py-3">
-            <div className="col-8 col-md-6">
-              <div className="progress">
+     
+            <div className="col-sm-12 col-md-12 col-lg-12">
+              <div className="progress" style={{width: '50%', margin: '0 auto', marginTop: '20px'}}>
                 <div
                   className="progress-bar"
                   role="progressbar"
@@ -72,10 +87,7 @@ function footerPage (props) {
                 ></div>
                 
               </div>
-              <div className="col d-flex flex-column" id="songInfo">
-              <small style={{marginLeft: '210px', paddingTop: '10px'}} id="songName">{props.albums.selectedSong}</small>
-              {/* <small id="singer ">{props.footerTitle}</small> */}
-            </div>
+ 
             </div>
           </div>
         </div>

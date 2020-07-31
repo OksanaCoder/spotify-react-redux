@@ -11,7 +11,10 @@ const initialState = {
     albums: {
         data: [],
         loading: true,
-        selectedSong: ""
+        selectedSong: "",
+        selectedAlbum: "",
+        isPlaying: false,
+        
     },
     tracks : {
         data: [],

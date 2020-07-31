@@ -20,6 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
         type: 'CHOOSE_SONG',
         payload: track
     }),
+    setCover: (cover) => dispatch({
+        type: 'CHOOSE_AlBUM_COVER',
+        payload: cover
+    }),
     setTracks: () => dispatch(fetchTracks()),
     toggleLoading: () => dispatch({
         type: 'TOGGLE_LOADING'
@@ -80,23 +84,20 @@ const fetchArtistNames = () => {
 
 class AlbumPage extends Component{
 
-    // state = {
-    //     albums: [],
-    //     tracks: [],
-    //     artistName: [],
-    //     loading: true
-    // }
+  
+
     
     // albumToFooter = (albumId, albumCover, albumLabel, albumTitle) => (
     //     this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
     //     )
    
     componentDidMount = async () => {
-          await this.props.setAlbums(this.props.match.params.id)
-        console.log( 'component',  this.props)
+        await this.props.setAlbums(this.props.match.params.id)
+        console.log( 'component',  this.props)       
     }
 
-    
+       
+  
 
     // componentDidMount = () => {
     //     const albumId = this.props.match.params.id;
@@ -172,7 +173,7 @@ class AlbumPage extends Component{
                
                 </div>
                 <div className="mt-4 text-center">
-                <button id="btnPlay" className="btn btn-success" type="button">
+                <button id="btnPlay" className="btn btn-success" type="button" onClick={() => this.state.song.play()}>
                     Play
                 </button>
                 </div>
@@ -183,7 +184,7 @@ class AlbumPage extends Component{
                 {this.props.albums.data && this.props.albums.data.tracks && this.props.albums.data.tracks.data.map((tracklist)=>{
                     return(
                         <div className="py-3 trackHover" key={tracklist.id}>
-                        <FontAwesomeIcon style={{color: '#fff'}} icon={faPlayCircle} />
+                        <FontAwesomeIcon style={{color: '#fff'}} icon={faPlayCircle}/>
                         <a onClick={()=>this.props.playSong(tracklist.title)}
                             href="#"
                             className="card-title trackHover px-3"

@@ -3,7 +3,7 @@ export default function (state = {}, action) {
         case "SET_TRACKS":
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,
             };
         case "TOGGLE_LOADING":
             return{

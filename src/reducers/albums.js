@@ -14,7 +14,20 @@ export default function (state = {}, action) {
                 return{
                     ...state,
                     selectedSong: action.payload
+                    
          };
+         case "CHOOSE_AlBUM_COVER":
+            return{
+                ...state,
+                selectedSong: action.payload
+                
+     };
+     case 'PLAY_TRACK':
+        return {
+            ...state,
+            isPlaying: !state.isPlaying,
+        }
+       
         default:
             return state;
     }
