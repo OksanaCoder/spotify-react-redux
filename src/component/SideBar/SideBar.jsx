@@ -1,8 +1,9 @@
 import {Navbar, Nav, NavItem, Button} from 'react-bootstrap';
 import { withRouter} from 'react-router-dom';
 import React, {Component} from 'react';
-
-
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faBook } from '@fortawesome/free-solid-svg-icons'
 
 class SideBar extends Component {
 
@@ -41,12 +42,12 @@ class SideBar extends Component {
                   <ul>
                     <li>
                       <a className="nav-item nav-link" href="/"
-                        ><i className="fas fa-home fa-lg"></i>&nbsp; Home
+                        >  <FontAwesomeIcon style={{color: '#fff', marginRight: '10px'}} icon={faHome} /> Home
                       </a>
                     </li>
                     <li>
                       <a className="nav-item nav-link" href="#"
-                        ><i className="fas fa-book-open fa-lg"></i>&nbsp; Your
+                        > <FontAwesomeIcon style={{color: '#fff', marginRight: '10px'}} icon={faBook} /> Your
                         Library</a
                       >
                     </li>
