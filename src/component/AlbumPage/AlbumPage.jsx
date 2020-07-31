@@ -1,59 +1,124 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
 import { Col, Image, Modal, Button, Spinner } from "react-bootstrap";
+import { BrowserRouter as Router, withRouter, Link} from "react-router-dom";
+import { connect } from "react-redux";
+// import Spiner from './Spiner'
 
+const mapStateToProps = (state) => state;
 
-class AlbumPage extends Component{
-    state = {
-        albums: [],
-        tracks: [],
-        artistName: [],
-        loading: true
-    }
-    
-    albumToFooter = (albumId, albumCover, albumLabel, albumTitle) => (
-        this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
-        )
-   
-    componentDidMount = () => {
-        const albumId = this.props.match.params.id;
-        let headers = new Headers({
-            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-            "x-rapidapi-key":
-              "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579",
-          });
-  
-          fetch("https://deezerdevs-deezer.p.rapidapi.com/album/" + albumId, {
-                "method": "GET",
+const mapDispatchToProps = (dispatch) => ({
+ 
+    setAlbums: () => dispatch(fetchAlbums()),
+    toggleLoading: () => dispatch({
+        type: 'TOGGLE_LOADING'
+    }),
+    setTracks: () => dispatch(fetchTracks()),
+    toggleLoading: () => dispatch({
+        type: 'TOGGLE_LOADING'
+    }),
+    setArtistsName: () => dispatch(fetchArtistNames()),
+    toggleLoading: () => dispatch({
+        type: 'TOGGLE_LOADING'
+    })
+});
+
+const fetchAlbums = () => {
+    return (dispatch, getState) => {
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/', {
+        "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
                     "x-rapidapi-key": "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579"
                 }
-            })
-            .then(response => {
-               return response.json()
+    })
+    .then(result => result.json())
+    
+    .then(data => {
+        console.log(data)
+        return dispatch({type: "SET_ALBUMS", payload: data.users })
+    })
+ }
+}
+const fetchTracks = () => {
+    return (dispatch, getState) => {
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/', {
+        "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                    "x-rapidapi-key": "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579"
+                }
+    })
+    .then(result => result.json())
+    
+    .then(data => {
+        console.log(data)
+        return dispatch({type: "SET_TRACKS", payload: data.users })
+    })
+ }
+}
+const fetchArtistNames = () => {
+    return (dispatch, getState) => {
+    fetch('https://deezerdevs-deezer.p.rapidapi.com/album/')
+    .then(result => result.json())
+    
+    .then(data => {
+        console.log(data)
+        return dispatch({type: "SET_ARTIST_NAME", payload: data.users })
+    })
+ }
+}
+
+class AlbumPage extends Component{
+    // state = {
+    //     albums: [],
+    //     tracks: [],
+    //     artistName: [],
+    //     loading: true
+    // }
+    
+    // albumToFooter = (albumId, albumCover, albumLabel, albumTitle) => (
+    //     this.props.sendAlbum(albumId, albumCover, albumLabel, albumTitle)
+    //     )
+   
+    // componentDidMount = () => {
+    //     const albumId = this.props.match.params.id;
+    //     let headers = new Headers({
+    //         "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    //         "x-rapidapi-key":
+    //           "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579",
+    //       });
+  
+    //       fetch("https://deezerdevs-deezer.p.rapidapi.com/album/" + albumId, {
+    //             "method": "GET",
+    //             "headers": {
+    //                 "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    //                 "x-rapidapi-key": "8275c582bamshd83a3179dd00459p19f0b2jsn94c889368579"
+    //             }
+    //         })
+    //         .then(response => {
+    //            return response.json()
               
-            }).then((album)=>{
-                //console.log("response from fetch", response.json());
-                let albums = album
-                let tracks = album.tracks.data
-                const artistName = album.artist
-                this.setState({
-                    albums: albums,
-                    tracks: tracks,
-                    artistName: artistName
+    //         }).then((album)=>{
+    //             //console.log("response from fetch", response.json());
+    //             let albums = album
+    //             let tracks = album.tracks.data
+    //             const artistName = album.artist
+    //             this.setState({
+    //                 albums: albums,
+    //                 tracks: tracks,
+    //                 artistName: artistName
                     
-                })
-                //console.log('new state 1', this.state.tracks)
-                //console.log('new state album', this.state.albums)
-                //console.log('new state album', this.state.artistName)
-                this.albumToFooter(albumId, albums.cover_small, albums.label, albums.title);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    //             })
+    //             //console.log('new state 1', this.state.tracks)
+    //             //console.log('new state album', this.state.albums)
+    //             //console.log('new state album', this.state.artistName)
+    //             this.albumToFooter(albumId, albums.cover_small, albums.label, albums.title);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
             
-    }
+    // }
     
     render(){
         console.log('props from app.js', this.props)
@@ -122,4 +187,7 @@ class AlbumPage extends Component{
         
     }
 }
-export default AlbumPage;
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(AlbumPage)
+  );
+  
