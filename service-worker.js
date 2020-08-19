@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/spotify-react-redux/precache-manifest.bd352e0bfb396c4c7a80f66b5f2d3b87.js"
+  "/spotify-react-redux/precache-manifest.44351bb34b6f2c5244175d578dec112c.js"
 );
 
 self.addEventListener('message', (event) => {
