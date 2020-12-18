@@ -1,4 +1,4 @@
-** Spotify clone **
+## Spotify clone 
 
 ```npm start``` to run the app
 As soon as you get on the main page - Albums page, you will see a list of albums.
