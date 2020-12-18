@@ -7,4 +7,6 @@ You can click on any of favourable album and you will be redirected to a trackli
 
 To be redirected to Artist Page, click  ```Artist: ...``` button
 
+The app is adaptive to all the devices.
+
 
